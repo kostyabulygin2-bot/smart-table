@@ -13,6 +13,8 @@ import {initPagination} from "./components/pagination.js"
 import {initSorting} from "./components/sorting.js"
 
 import {initFiltering} from "./components/filtering.js"
+
+import { initSearching } from './components/searching.js';
 // @todo: подключение
 
 
@@ -50,13 +52,15 @@ function render(action) {
 
     result = applyPagination(result, state, action);
 
+    result = applySearching(result, state, action);
+
     sampleTable.render(result)
 }
 
 const sampleTable = initTable({
     tableTemplate: 'table',
     rowTemplate: 'row',
-    before: ['header', 'filter'],
+    before: ['search','header', 'filter'],
     after: ['pagination']
 }, render);
 
@@ -81,6 +85,20 @@ const applyPagination = initPagination(
         return el;
     }
 );
+
+const applySearching = initSearching('search', (data, state) => {
+    const searchTerm = state.search || '';
+
+    if(!searchTerm) {
+        return data;
+    }
+
+    return data.filter(item =>
+        Object.values(item).some(value =>
+            String(value).toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    );
+});
 
 const appRoot = document.querySelector('#app');
 appRoot.appendChild(sampleTable.container);
