@@ -13,7 +13,7 @@ export function initFiltering(elements, indexes) {
         ...Object.values(indexes[elementName]) // формируем массив имён, значений опций
           .map((name) => {
             // используйте name как значение и текстовое содержимое
-            const option = document.querySelector("option"); // @todo: создать и вернуть тег опции
+            const option = document.createElement("option"); // @todo: создать и вернуть тег опции
             option.textContent = name;
             option.value = name;
             return option;
