@@ -52,7 +52,7 @@ async function render(action) {
 
     query = applyPagination(query, state, action);
 
-    result = applySearching(result, state, action);
+    query = applySearching(query, state, action);
 
     const { total, items } = await api.getRecords(query);
 
