@@ -2,8 +2,8 @@ import {getPages} from "../lib/utils.js";
 
 export const initPagination = ({pages, fromRow, toRow, totalRows}, createPage) => {
     // @todo: #2.3 — подготовить шаблон кнопки для страницы и очистить контейнер
-    // const pageTemplate = pages.firstElementChild.cloneNode(true);    // в качестве шаблона берём первый элемент из контейнера со страницами
-    // pages.firstElementChild.remove();                                // и удаляем его (предполагаем, что там больше ничего, как вариант, можно и всё удалить из pages)
+    const pageTemplate = pages.firstElementChild.cloneNode(true);    // в качестве шаблона берём первый элемент из контейнера со страницами
+    pages.firstElementChild.remove();                                // и удаляем его (предполагаем, что там больше ничего, как вариант, можно и всё удалить из pages)
 
     let pageCount;
 
@@ -32,8 +32,8 @@ export const initPagination = ({pages, fromRow, toRow, totalRows}, createPage) =
         }))
         // @todo: #2.5 — обновить статус пагинации
         fromRow.textContent = (page - 1) * limit + 1;                    // С какой строки выводим
-        toRow.textContent = Math.min((page * limit), data.length);    // До какой строки выводим, если это последняя страница, то отображаем оставшееся количество
-        totalRows.textContent = data.length;
+        toRow.textContent = Math.min((page * limit), total);    // До какой строки выводим, если это последняя страница, то отображаем оставшееся количество
+        totalRows.textContent = total;
     }                                // Сколько всего строк выводим на всех страницах вместе (после фильтрации будет меньше)
      return {
       updatePagination,
